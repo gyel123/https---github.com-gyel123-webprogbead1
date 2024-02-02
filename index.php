@@ -1,17 +1,13 @@
 <?php
-error_reporting(E_ALL ^ (E_NOTICE | E_DEPRECATED | E_WARNING));
+session_start();
 
-include('./includes/config.inc.php');
+require_once(__DIR__ . '/Core/functions.php');
 
-$keres = $oldalak['/'];
-if (isset($_GET['oldal'])) {
-	if (isset($oldalak[$_GET['oldal']]) && file_exists("./templates/pages/{$oldalak[$_GET['oldal']]['fajl']}.tpl.php")) {
-		$keres = $oldalak[$_GET['oldal']];
-	}
-	else { 
-		$keres = $hiba_oldal;
-		header("HTTP/1.0 404 Not Found");
-	}
-}
-include('./templates/index.tpl.php'); 
+spl_autoload_register(function ($Name) {
+    require_once(__DIR__ . DIRECTORY_SEPARATOR . str_replace('\\', DIRECTORY_SEPARATOR, $Name) . '.php');
+});
+
+$Router = new Core\Router();
+$Router->GetRoute();
+
 ?>

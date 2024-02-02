@@ -1,0 +1,1 @@
+<h2 style="color: red;text-align: center">Az oldal nem található</h2>
